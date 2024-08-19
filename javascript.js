@@ -9,16 +9,24 @@ function createSquare(){
     let square = document.createElement("div")
     square.setAttribute(
         "style", 
-            "background-color: pink;border: 1px dotted black; width:30px; height:30px; box-sizing:border-box;"
+            "background-color: pink;border: 1px dotted grey; box-sizing:border-box;"
     )
     return square
 }
 
+function getSquareWidth(grid,num) {
+    let value = 1/num * grid.clientWidth;
+    width = value + "px";
+    return width
+}
 
 function createDrawBoard(num) {
     let amount = num**2;
     while (amount>0) {
         newSquare = createSquare();
+        newWidth = getSquareWidth(drawBoard,num)
+        newSquare.style.width = newWidth;
+        newSquare.style.height = newWidth;
         drawBoard.appendChild(newSquare);
         amount--;
     }
