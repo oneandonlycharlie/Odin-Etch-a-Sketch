@@ -1,15 +1,19 @@
 
-const drawBoard = document.querySelector(".container")
-drawBoard.setAttribute(
-    "style",
-    "width:480px; height:480px; display: flex; border: 1px solid black; flex-wrap:wrap;"
-)
 
+// This part creats a button to reset the sketchboard //
+const body = document.querySelector("body")
+const resetButton = document.createElement("button")
+resetButton.textContent = "Click here to reset"
+resetButton.style.marginBottom = "30px"
+body.appendChild(resetButton)
+
+// This part creats a customizabble grid //
 function createSquare(){
     let square = document.createElement("div")
+    square.className = "square"
     square.setAttribute(
         "style", 
-            "background-color: pink;border: 1px dotted grey; box-sizing:border-box;"
+            "background-color: white;border: 1px dotted grey; box-sizing:border-box;"
     )
     return square
 }
@@ -21,6 +25,13 @@ function getSquareWidth(grid,num) {
 }
 
 function createDrawBoard(num) {
+    let drawBoard = document.createElement("div")
+    drawBoard.className = "container"
+    drawBoard.setAttribute(
+    "style",
+    "width:480px; height:480px; display: flex; border: 1px solid grey; flex-wrap:wrap;"
+    ) 
+    body.appendChild(drawBoard)
     let amount = num**2;
     while (amount>0) {
         newSquare = createSquare();
@@ -30,6 +41,26 @@ function createDrawBoard(num) {
         drawBoard.appendChild(newSquare);
         amount--;
     }
+    drawBoard.addEventListener("mouseover", mouseEventHandler)
 }
 
+
 createDrawBoard(16)
+
+// This part handles the pen brush/events //
+
+
+function mouseEventHandler(e) {
+    let target = e.target;
+    target.style.backgroundColor = "black";
+}
+
+function reset (){
+    userInput = Number(prompt("Please insert a number to reset the drawing board"))
+    let container = document.querySelector(".container")
+    container.remove()
+    createDrawBoard(userInput)
+}
+
+
+resetButton.addEventListener("click", reset)
